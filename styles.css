@@ -77,6 +77,15 @@ svg {
 .hihat-pad {
   background: rgb(243, 168, 224);
 }
+.kick-pad.active {
+  background: rgb(15, 245, 245);
+}
+.snare-pad.active {
+  background: rgb(229, 243, 26);
+}
+.hihat-pad.active {
+  background: rgb(241, 44, 192);
+}
 
 .play {
   padding: 1rem 3rem;
@@ -86,4 +95,13 @@ svg {
   color: white;
   margin-top: 5rem;
   font-size: 1.8rem;
+}
+
+@keyframes playTrack {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.2);
+  }
 }
