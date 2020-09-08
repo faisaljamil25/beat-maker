@@ -1,3 +1,5 @@
+// Create Class
+
 class Drumkit {
     constructor() {
         this.pads = document.querySelectorAll(".pad");
@@ -5,10 +7,12 @@ class Drumkit {
         this.kickAudio = document.querySelector(".kick-sound");
         this.snareAudio = document.querySelector(".snare-sound");
         this.hihatAudio = document.querySelector(".hihat-sound");
+        this.selects = document.querySelectorAll("select");
+        this.muteBtns = document.querySelectorAll(".mute");
+        this.tempoSlider = document.querySelector(".tempo-slider");
+        this.isPlaying = null;
         this.index = 0;
         this.bpm = 200;
-        this.isPlaying = null;
-        this.selects = document.querySelectorAll("select");
     }
     activePad() {
         this.classList.toggle("active");
@@ -46,7 +50,6 @@ class Drumkit {
         if (this.isPlaying) {
             // Clear the interval
             clearInterval(this.isPlaying);
-            console.log(this.isPlaying);
             this.isPlaying = null;
 
         } else {
@@ -80,11 +83,57 @@ class Drumkit {
                 break;
         }
     }
+    muteSound(event) {
+        const muteIndex = event.target.getAttribute("data-track");
+        event.target.classList.toggle("active");
+        if (event.target.classList.contains("active")) {
+            switch (muteIndex) {
+                case "0":
+                    this.kickAudio.volume = 0;
+                    break;
+                case "1":
+                    this.snareAudio.volume = 0;
+                    break;
+                case "2":
+                    this.hihatAudio.volume = 0;
+                    break;
+            }
+        } else {
+            switch (muteIndex) {
+                case "0":
+                    this.kickAudio.volume = 1;
+                    break;
+                case "1":
+                    this.snareAudio.volume = 1;
+                    break;
+                case "2":
+                    this.hihatAudio.volume = 1;
+                    break;
+            }
+        }
+    }
+    changeTempo(event) {
+        const tempoText = document.querySelector(".tempo-nr");
+        tempoText.innerText = event.target.value;
+    }
+    updateTempo(event) {
+        this.bpm = event.target.value;
+        clearInterval(this.isPlaying);
+        this.isPlaying = null;
+        if (this.playBtn.classList.contains("active")) {
+            this.start();
+        }
+    }
 }
 
 const drumkit = new Drumkit();
 
 // EVENT LISTNERS
+
+drumkit.playBtn.addEventListener("click", function () {
+    drumkit.updateBtn();
+    drumkit.start();
+})
 
 drumkit.selects.forEach(select => {
     select.addEventListener("change", function (event) {
@@ -99,7 +148,16 @@ drumkit.pads.forEach(pad => {
     })
 })
 
-drumkit.playBtn.addEventListener("click", function () {
-    drumkit.updateBtn();
-    drumkit.start();
+drumkit.muteBtns.forEach(button => {
+    button.addEventListener("click", function (event) {
+        drumkit.muteSound(event);
+    })
+})
+
+drumkit.tempoSlider.addEventListener("input", function (event) {
+    drumkit.changeTempo(event);
+})
+
+drumkit.tempoSlider.addEventListener("change", function (event) {
+    drumkit.updateTempo(event);
 })

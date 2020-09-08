@@ -13,6 +13,9 @@ i,
 svg {
   pointer-events: none;
 }
+button {
+  outline: none;
+}
 
 .sequencer {
   min-height: 100vh;
@@ -45,15 +48,18 @@ svg {
   padding: 1rem;
   cursor: pointer;
   border: none;
-  background: rgb(70, 68, 68);
+  background: rgb(133, 131, 131);
   font-size: 1.6rem;
   color: white;
   transition: all 0.5s ease;
 }
+.mute.active {
+  background: rgb(70, 68, 68);
+}
 .controls select {
   padding: 1rem;
   font-size: 1.6rem;
-  width: 15rem;
+  width: 15.2rem;
 }
 .kick,
 .snare,
@@ -69,7 +75,7 @@ svg {
   transition: all 0.5s ease;
 }
 .kick-pad {
-  background: rgb(168, 243, 243);
+  background: rgb(181, 252, 252);
 }
 .snare-pad {
   background: rgb(238, 243, 168);
@@ -95,6 +101,27 @@ svg {
   color: white;
   margin-top: 5rem;
   font-size: 1.8rem;
+}
+
+.tempo {
+  margin: 3rem;
+  width: 30%;
+}
+.tempo-slider {
+  width: 100%;
+  padding: 0.2rem;
+  margin: 1rem 0;
+  -webkit-appearance: none;
+  position: relative;
+  background: rgb(70, 68, 68);
+  cursor: pointer;
+  border-radius: 1rem;
+  outline: none;
+}
+.tempo p {
+  font-size: 1.8rem;
+  margin-top: 2rem;
+  text-align: center;
 }
 
 @keyframes playTrack {
